@@ -1,12 +1,12 @@
 class Solution{
   public:
     // Function to detect cycle in an undirected graph.
-    bool iscyclicDFS(int node, int parent, vector<int>& visited,vector<int>adj[]){
+    bool DFS(int node, int parent, vector<int>& visited,vector<int>adj[]){
         visited[node] = 1;
         
         for(auto neighbour:adj[node]){
             if(!visited[neighbour]){
-                bool cycle_detected = iscyclicDFS(neighbour, node, visited, adj);
+                bool cycle_detected = DFS(neighbour, node, visited, adj);
                 if(cycle_detected)
                     return true;
             }
@@ -21,7 +21,7 @@ class Solution{
       
         for(int i=0; i<V; i++){
             if(!visited[i]){
-                bool ans = iscyclicDFS(i,-1,visited,adj);
+                bool ans = DFS(i,-1,visited,adj);
                 if(ans)
                     return 1;
           }
