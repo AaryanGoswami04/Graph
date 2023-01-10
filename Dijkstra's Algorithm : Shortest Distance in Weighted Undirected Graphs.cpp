@@ -1,6 +1,7 @@
 class Solution
 {
 public:
+	//TC: O(E log V)
 	//Function to find the shortest distance of all the vertices
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
