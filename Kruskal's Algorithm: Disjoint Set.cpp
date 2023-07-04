@@ -1,14 +1,18 @@
 /*Given a weighted, undirected and connected graph of V vertices and E edges. The task is to find the sum of weights of the edges of the Minimum Spanning Tree.*/
 //TC: O(E log E)
 //SC: O(2V)
+//Disjoint Set Data structure helps us determine if two nodes belong to the same component in O(1) time. Union by Rank and Size both perform the same task however the latter is more intuitive to understand.
 class DisjointSet{
-    vector<int> rank, parent;
+    vector<int> rank, parent, size;
     public:
         DisjointSet(int n){
             rank.resize(n+1, 0);
             parent.resize(n+1);
+	    size.resize(n + 1);
+		
             for(int i=0; i<n; i++){
                 parent[i] = i;
+		size[i] = 1;
             }
         }
   
@@ -32,6 +36,20 @@ class DisjointSet{
                 rank[ulp_u]++;
             }
         }
+
+	void unionBySize(int u, int v) {
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        if (ulp_u == ulp_v) return;
+        if (size[ulp_u] < size[ulp_v]) {
+            parent[ulp_u] = ulp_v;
+            size[ulp_v] += size[ulp_u];
+        }
+        else {
+            parent[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v];
+        }
+    }
 };
 class Solution
 {
